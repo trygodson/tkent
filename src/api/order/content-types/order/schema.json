@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "string"
+    },
+    "orders": {
+      "type": "json"
+    },
+    "stripeCustomerId": {
+      "type": "string"
+    },
+    "isPaid": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
