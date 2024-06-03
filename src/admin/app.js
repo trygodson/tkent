@@ -1,15 +1,15 @@
 import logo from "./extentions/icon.png";
 
 const config = {
-  // auth: {
-  //   logo,
-  // },
-  // head: {
-  //   favicon: logo,
-  // },
-  // menu: {
-  //   logo,
-  // },
+  auth: {
+    logo,
+  },
+  head: {
+    favicon: logo,
+  },
+  menu: {
+    logo,
+  },
   translations: {
     en: {
       "app.components.LeftMenu.navbrand.title": "Tk Enterprise",
