@@ -46,6 +46,11 @@ module.exports = createCoreController("api::order.order", ({strapi}) => {
             };
           })
         );
+
+        console.log(
+          orderList.map((d) => d.productId),
+          "--products ids---"
+        );
         const theOrders = await strapi.service("api::order.order").create({
           data: {
             products: orderList.map((d) => d.productId),
