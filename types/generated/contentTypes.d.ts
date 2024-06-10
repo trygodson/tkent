@@ -642,7 +642,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     status: Attribute.Enumeration<["Awaiting Proof", "Pending", "Approved", "Declined", "Delivered"]> &
       Attribute.DefaultTo<"Awaiting Proof">;
     proofOfPayment: Attribute.Media<"images", true>;
-    products: Attribute.Relation<"api::order.order", "oneToMany", "api::product.product">;
+    products: Attribute.Relation<"api::order.order", "manyToMany", "api::product.product">;
     orderList: Attribute.JSON & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -670,7 +670,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
     quantity: Attribute.Integer;
     types: Attribute.JSON;
     Images: Attribute.Media<"images" | "files" | "videos" | "audios", true>;
-    order: Attribute.Relation<"api::product.product", "manyToOne", "api::order.order">;
+    orders: Attribute.Relation<"api::product.product", "manyToMany", "api::order.order">;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
