@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "productName": {
       "type": "string"
     },
     "quantity": {
@@ -32,9 +32,6 @@
     },
     "price": {
       "type": "biginteger"
-    },
-    "quantities": {
-      "type": "string"
     },
     "userEmail": {
       "type": "email",

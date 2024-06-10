@@ -5,14 +5,15 @@ module.exports = [
   "strapi::cors",
   "strapi::poweredBy",
   "strapi::query",
-  {
-    name: "strapi::body",
-    config: {
-      patchKoa: true,
-      multipart: true,
-      includeUnparsed: true,
-    },
-  },
+  "strapi::body",
+  // {
+  //   name: "strapi::body",
+  //   config: {
+  //     patchKoa: true,
+  //     multipart: true,
+  //     includeUnparsed: true,
+  //   },
+  // },
   "strapi::session",
   "strapi::favicon",
   "strapi::public",

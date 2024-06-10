@@ -15,15 +15,35 @@
     "email": {
       "type": "string"
     },
-    "orders": {
-      "type": "json"
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Awaiting Proof",
+        "Pending",
+        "Approved",
+        "Declined",
+        "Delivered"
+      ],
+      "default": "Awaiting Proof",
+      "required": false
     },
-    "stripeCustomerId": {
-      "type": "string"
+    "proofOfPayment": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
-    "isPaid": {
-      "type": "boolean",
-      "default": false
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "order"
+    },
+    "orderList": {
+      "type": "json",
+      "required": true
     }
   }
 }

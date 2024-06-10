@@ -22,14 +22,30 @@ module.exports = createCoreController("api::cart.cart", ({strapi}) => {
     },
     async create(ctx) {
       const {email} = ctx.state.user;
+      const {productId, quantity} = ctx.request.body.data;
       try {
-        const res = await strapi.service("api::cart.cart").create({
-          data: {
-            ...ctx.request.body.data,
-            userEmail: email,
-          },
+        const data = await strapi.db.query("api::cart.cart").findOne({
+          where: {productId: productId},
         });
-        return res;
+
+        if (data) {
+          const dd = await strapi.db.query("api::cart.cart").update({
+            where: {id: data.id},
+            data: {
+              ...ctx.request.body.data,
+              quantity: Number(quantity) + Number(data?.quantity),
+            },
+          });
+          return dd;
+        } else {
+          const res = await strapi.service("api::cart.cart").create({
+            data: {
+              ...ctx.request.body.data,
+              userEmail: email,
+            },
+          });
+          return res;
+        }
       } catch (error) {
         ctx.response.status = 500;
         return error;

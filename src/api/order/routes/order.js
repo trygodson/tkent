@@ -29,7 +29,7 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/order/find",
+      path: "/order/find/:type",
       handler: "order.find",
       config: {
         policies: [],

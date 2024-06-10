@@ -610,14 +610,13 @@ export interface ApiCartCart extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    productName: Attribute.String;
     quantity: Attribute.Integer;
     test: Attribute.String;
     imageUrl: Attribute.String;
     description: Attribute.Blocks;
     productId: Attribute.Integer;
     price: Attribute.BigInteger;
-    quantities: Attribute.String;
     userEmail: Attribute.Email & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -640,9 +639,11 @@ export interface ApiOrderOrder extends Schema.CollectionType {
   };
   attributes: {
     email: Attribute.String;
-    orders: Attribute.JSON;
-    stripeCustomerId: Attribute.String;
-    isPaid: Attribute.Boolean & Attribute.DefaultTo<false>;
+    status: Attribute.Enumeration<["Awaiting Proof", "Pending", "Approved", "Declined", "Delivered"]> &
+      Attribute.DefaultTo<"Awaiting Proof">;
+    proofOfPayment: Attribute.Media<"images", true>;
+    products: Attribute.Relation<"api::order.order", "oneToMany", "api::product.product">;
+    orderList: Attribute.JSON & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -669,6 +670,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
     quantity: Attribute.Integer;
     types: Attribute.JSON;
     Images: Attribute.Media<"images" | "files" | "videos" | "audios", true>;
+    order: Attribute.Relation<"api::product.product", "manyToOne", "api::order.order">;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
