@@ -25,7 +25,7 @@ module.exports = createCoreController("api::cart.cart", ({strapi}) => {
       const {productId, quantity} = ctx.request.body.data;
       try {
         const data = await strapi.db.query("api::cart.cart").findOne({
-          where: {productId: productId},
+          where: {$and: [{email: email}, {productId: productId}]},
         });
 
         if (data) {
