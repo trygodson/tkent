@@ -644,6 +644,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     proofOfPayment: Attribute.Media<"images", true>;
     products: Attribute.Relation<"api::order.order", "manyToMany", "api::product.product">;
     orderList: Attribute.JSON & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

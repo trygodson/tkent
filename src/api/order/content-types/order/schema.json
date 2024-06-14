@@ -44,6 +44,10 @@
     "orderList": {
       "type": "json",
       "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
     }
   }
 }

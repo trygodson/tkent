@@ -19,7 +19,7 @@ module.exports = createCoreController("api::order.order", ({strapi}) => {
       const files = ctx.request.files;
 
       const parsedData = JSON.parse(dbody.data.trim());
-      const {orders, amount, currency, email} = parsedData;
+      const {orders, amount, currency, email, phone} = parsedData;
       const {email: loggedInEmail} = ctx.state.user ? ctx.state.user : {email: null};
 
       try {
@@ -44,6 +44,7 @@ module.exports = createCoreController("api::order.order", ({strapi}) => {
             orderList: orders.map((d) => ({productName: d.productName, quantity: d.quantity})),
             email: email,
             status: "Pending",
+            phone,
           },
           files: {
             proofOfPayment: files["files.media"],
