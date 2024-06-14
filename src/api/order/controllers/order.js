@@ -19,8 +19,9 @@ module.exports = createCoreController("api::order.order", ({strapi}) => {
       const files = ctx.request.files;
 
       const parsedData = JSON.parse(dbody.data.trim());
-      const {orders, amount, currency} = parsedData;
-      const {email} = ctx.state.user;
+      const {orders, amount, currency, email} = parsedData;
+      const {email: loggedInEmail} = ctx.state.user ? ctx.state.user : {email: null};
+
       try {
         // const customer = await stripe.customers.create({
         //   email: email,
@@ -35,22 +36,12 @@ module.exports = createCoreController("api::order.order", ({strapi}) => {
         //   },
         //   metadata: {orders: JSON.stringify(orders), email: email},
         // });
-
-        const orderList = await Promise.all(
-          orders.map(async (order) => {
-            const cart = await strapi.service("api::cart.cart").findOne(order.cartId);
-            return {
-              productId: cart.productId,
-              productName: cart.productName,
-              quantity: cart.quantity,
-            };
-          })
-        );
+        console.log(email, "---the orders--", loggedInEmail, "====", orders);
 
         const theOrders = await strapi.service("api::order.order").create({
           data: {
-            products: orderList.map((d) => d.productId),
-            orderList: orderList.map((d) => ({productName: d.productName, quantity: d.quantity})),
+            products: orders.map((d) => d.productId),
+            orderList: orders.map((d) => ({productName: d.productName, quantity: d.quantity})),
             email: email,
             status: "Pending",
           },
@@ -58,12 +49,16 @@ module.exports = createCoreController("api::order.order", ({strapi}) => {
             proofOfPayment: files["files.media"],
           },
         });
-
-        // console.log(theOrders, "---the orders--");
+        // console.log(theOrders, "--theorders--");
         if (theOrders) {
-          const deleteCart = await strapi.db.query("api::cart.cart").deleteMany({
-            where: {userEmail: email},
-          });
+          if (loggedInEmail) {
+            const df = await strapi.db.query("api::cart.cart").deleteMany({
+              where: {userEmail: email},
+            });
+
+            // console.log(df, "deletcart");
+          }
+
           return {success: true, data: theOrders};
         }
       } catch (error) {
