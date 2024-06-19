@@ -20,12 +20,14 @@ module.exports = {
       <body style="font-family: Arial, sans-serif, sans-serif; max-width: 560px; margin: 0 auto; color: #090909">
         <section style="padding: 30px 30px; background-color: white; width: 100%; text-align: center">
           <p style="color: black; font-size: 17px; font-weight: 500; text-align: center">
-            Your Orders Has Been ${status} Check The App to View Update
+            Your Orders  ${
+              status === "Pending" ? `is Pending` : `Has Been ${status ?? ""}`
+            } Check The App to View Update
           </p>
 
           <div style="display: flex; justify-content: center">
             <div style="padding: 1px 30px; background-color: ${
-              status !== "Approved" ? "rgb(13, 95, 201)" : "008000"
+              status !== "Approved" ? "rgb(13, 95, 201)" : "#008000"
             }; border-radius: 15px">
               <p style="color: white; font-size: 17px; font-weight: 500; text-align: center">${status ?? ""}</p>
             </div>
