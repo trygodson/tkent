@@ -29,14 +29,6 @@ module.exports = createCoreController("api::cart.cart", ({strapi}) => {
         });
 
         if (data) {
-          const er = await strapi.plugins["email"].service("email").send({
-            to: "gnqnpn@gmail.com",
-            from: "76e1f7001@smtp-brevo.com",
-            subject: "Hello world",
-            text: "Hello world",
-            html: `<h4>Hello world</h4>`,
-          });
-          console.log(er);
           const dd = await strapi.db.query("api::cart.cart").update({
             where: {id: data.id},
             data: {
@@ -46,25 +38,6 @@ module.exports = createCoreController("api::cart.cart", ({strapi}) => {
           });
           return dd;
         } else {
-          const er = await strapi.plugins["email"].service("email").send({
-            to: "gnqnpn@gmail.com",
-            from: "76e1f7001@smtp-brevo.com",
-            subject: "Hello world",
-            text: "Hello world",
-            html: `<h4>Hello world</h4>`,
-          });
-          // strapi.plugins['email'].services.email.send({
-          //   to: 'paulbocuse@strapi.io',
-          //   from: 'joelrobuchon@strapi.io',
-          //   cc: 'helenedarroze@strapi.io',
-          //   bcc: 'ghislainearabian@strapi.io',
-          //   replyTo: 'annesophiepic@strapi.io',
-          //   subject: 'Use strapi email provider successfully',
-          //   text: 'Hello world!',
-          //   html: 'Hello world!',
-          // });
-
-          console.log(er);
           const res = await strapi.service("api::cart.cart").create({
             data: {
               ...ctx.request.body.data,

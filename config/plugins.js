@@ -1,12 +1,36 @@
 module.exports = ({env}) => ({
   upload: {
     config: {
+      provider: "cloudinary",
       providerOptions: {
-        localServer: {
-          maxage: 300000,
-        },
+        cloud_name: env("CLOUDINARY_NAME"),
+        api_key: env("CLOUDINARY_KEY"),
+        api_secret: env("CLOUDINARY_SECRET"),
+      },
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {},
       },
     },
+    // config: {
+    //   providerOptions: {
+    //     localServer: {
+    //       maxage: 300000,
+    //     },
+    //   },
+    // },
+
+    // config: {
+    //   provider: "strapi-provider-firebase-storage",
+    //   providerOptions: {
+    //     serviceAccount: require("./serviceAccount.json"),
+    //     // Custom bucket name
+    //     bucket: env("STORAGE_BUCKET_URL", "zsttest"),
+    //     sortInStorage: true, // true | false
+    //     debug: false, // true | false
+    //   },
+    // },
   },
   email: {
     config: {
