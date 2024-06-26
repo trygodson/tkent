@@ -80,7 +80,6 @@ const emailTemplate = (orders, status, total) => `
           </p>
         </div>
       </div>
-
         `
       )}
       <div style="display: flex; margin-top: 20px">
